@@ -13,77 +13,35 @@
  */
 
 
-// The Kaleidoscope core
-#include "Kaleidoscope.h"
 
-// Support for storing the keymap in EEPROM
-#include "Kaleidoscope-EEPROM-Settings.h"
+#include "Kaleidoscope.h"                        // The Kaleidoscope core
+#include "Kaleidoscope-EEPROM-Settings.h"        // stores the keymap in EEPROM
 #include "Kaleidoscope-EEPROM-Keymap.h"
+#include "Kaleidoscope-FocusSerial.h"            // communicates with the host via a simple Serial protocol
+#include "Kaleidoscope-MouseKeys.h"              // keys that move the mouse
+#include "Kaleidoscope-Macros.h"                 // macros
+#include "Kaleidoscope-LEDControl.h"             // controls the keyboard's LEDs
+#include "Kaleidoscope-NumPad.h"                 // "Numpad" mode, which is mostly just the Numpad specific LED mode
+#include "Kaleidoscope-LEDEffect-BootGreeting.h" // 10s Boot greeting 
+#include "Kaleidoscope-LEDEffect-SolidColor.h"   // LED modes that set all LEDs to a single color
+#include "Kaleidoscope-LED-Palette-Theme.h"      // shared palettes for other plugins, like Colormap below
+#include "Kaleidoscope-Colormap.h"               // a LED mode that lets one configure per-layer color maps
+#include "Kaleidoscope-HardwareTestMode.h"       // Keyboardio's internal keyboard testing mode
+#include "Kaleidoscope-HostPowerManagement.h"    // host power management (suspend & wakeup)
+#include "Kaleidoscope-MagicCombo.h"             // magic combos (key chords that trigger an action)
+#include "Kaleidoscope-USB-Quirks.h"             // USB quirks, like changing the key state report protocol
 
-// Support for communicating with the host via a simple Serial protocol
-#include "Kaleidoscope-FocusSerial.h"
 
-// Support for keys that move the mouse
-#include "Kaleidoscope-MouseKeys.h"
-
-// Support for macros
-#include "Kaleidoscope-Macros.h"
-
-// Support for controlling the keyboard's LEDs
-#include "Kaleidoscope-LEDControl.h"
-
-// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
-#include "Kaleidoscope-NumPad.h"
-
-// Support for the "Boot greeting" effect, which pulses the 'LED' button for 10s
-// when the keyboard is connected to a computer (or that computer is powered on)
-#include "Kaleidoscope-LEDEffect-BootGreeting.h"
-
-// Support for LED modes that set all LEDs to a single color
-#include "Kaleidoscope-LEDEffect-SolidColor.h"
-
-// Support for shared palettes for other plugins, like Colormap below
-#include "Kaleidoscope-LED-Palette-Theme.h"
-
-// Support for an LED mode that lets one configure per-layer color maps
-#include "Kaleidoscope-Colormap.h"
-
-// Support for Keyboardio's internal keyboard testing mode
-#include "Kaleidoscope-HardwareTestMode.h"
-
-// Support for host power management (suspend & wakeup)
-#include "Kaleidoscope-HostPowerManagement.h"
-
-// Support for magic combos (key chords that trigger an action)
-#include "Kaleidoscope-MagicCombo.h"
-
-// Support for USB quirks, like changing the key state report protocol
-#include "Kaleidoscope-USB-Quirks.h"
+enum { MACRO_VERSION_INFO, MACRO_ANY, MACRO_I3_COMMAND }; // List of Macros
+enum { PRIMARY, GAMING, FUNCTION };                       // List of Layers
 
 
 
 
-// List of Macros
-enum { MACRO_VERSION_INFO,
-       MACRO_ANY,
-       MACRO_I3_COMMAND
-     };
-
-// List of Layers
-enum { PRIMARY,
-       GAMING,
-       FUNCTION
-     };
-
-
-
-/* This comment temporarily turns off astyle's indent enforcement
- *   so we can make the keymaps actually resemble the physical key layout better
- */
 // *INDENT-OFF*
-
 KEYMAPS(
 
+  // Primary layer
   [PRIMARY] = KEYMAP_STACKED
   (Key_Escape,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
@@ -100,8 +58,7 @@ KEYMAPS(
    ShiftToLayer(FUNCTION)),
 
 
-  // This is the normal qwerty layout, but where pgdn is mapped to shift
-  // and left control is mapped to space
+  // Gaming layer
   [GAMING] = KEYMAP_STACKED
   (Key_Escape,  Key_1, Key_2, Key_3, Key_4, Key_5, ___,
    ___, Key_Q, Key_W, Key_E, ___, Key_T, Key_Tab,
@@ -117,7 +74,7 @@ KEYMAPS(
    ___, ___, ___, ___,
    ShiftToLayer(FUNCTION)),
    
-
+  // Function layer
   [FUNCTION] =  KEYMAP_STACKED
   (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
    Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
