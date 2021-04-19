@@ -50,7 +50,7 @@ KEYMAPS(
    Key_LeftControl, Key_Backspace, Key_RightAlt, Key_LeftShift,
    ShiftToLayer(FUNCTION),
 
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(GAMING),
+   Key_F24,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(GAMING),
    Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
                   Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
    M(MACRO_I3_COMMAND),  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
@@ -67,7 +67,7 @@ KEYMAPS(
    Key_Spacebar, ___, Key_RightAlt, Key_LeftShift,
    ShiftToLayer(FUNCTION),
    
-   M(MACRO_ANY), Key_6, Key_7, Key_8, Key_9,  Key_0,  LockLayer(GAMING),
+   ___, Key_6, Key_7, Key_8, Key_9,  Key_0,  LockLayer(GAMING),
    ___, ___, ___, ___, Key_O,  ___,  ___,
    ___, ___, ___, Key_L,  ___, ___,
    ___, ___, ___, ___, ___, Key_Slash, ___,
